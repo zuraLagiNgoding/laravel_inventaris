@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-indigo-900 leading-tight">
-            {{ __('Data Ruangan') }}
+            {{ __('Report Pemakaian') }}
         </h2>
     </x-slot>
 
@@ -21,13 +21,13 @@
         
         <div class="flex flex-col gap-4 max-w-7xl mx-auto h-full sm:px-6 lg:px-8">
             <div class="flex justify-between">
-                <form action="{{ route('ruangan') }}" method="get" class="flex items-center max-w-sm bg-white px-4 py-2 border h-10 overflow-hidden rounded-3xl">
+                <form action="{{ route('pemakaian') }}" method="get" class="flex items-center max-w-sm bg-white px-4 py-2 border h-10 overflow-hidden rounded-3xl">
                     <input name="search" type="text" class="!ring-0 basis-[90%] w-auto !outline-none border-0"/>
                     <button type="submit" class=" basis-[10%]">
                         <x-feathericon-search class="h-5 w-5 text-indigo-500"/>
                     </button>
                 </form>
-                <a href="{{ route("ruangan.save") }}" class="bg-gray-900 gap-2 text-white font-medium px-4 py-1 rounded-md flex items-center text-sm">New Ruangan <x-feathericon-plus-circle class="w-5 h-5 fill-white text-gray-900"/></a>
+                <a href="{{ route("pemakaian.save") }}" class="bg-gray-900 gap-2 text-white font-medium px-4 py-1 rounded-md flex items-center text-sm">New Pemakaian <x-feathericon-plus-circle class="w-5 h-5 fill-white text-gray-900"/></a>
             </div>
             <div class="flex flex-col h-full">
                 <div class="flex flex-col bg-white overflow-hidden border shadow-sm sm:rounded-lg">
@@ -35,30 +35,46 @@
                         <thead>
                             <tr class="border-b h-8 border-b-slate-200">
                                 <th class="w-16 text-start px-4">No</th>
-                                <th class="px-4">Nama</th>
-                                <th class="px-4">Deskripsi</th>
+                                <th class="px-4">Nama Barang</th>
+                                <th class="px-4">Merk/Type</th>
+                                <th class="px-4">Category</th>
+                                <th class="px-4">Tanggal Pakai</th>
+                                <th class="px-4">Jumlah</th>
+                                <th class="px-4">Ruang</th>
+                                <th class="px-4">Keterangan</th>
                                 <th class="w-24 px-4">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ruangans as $ruangan)    
+                            @foreach ($pemakaians as $pemakaian)    
                               <tr class="border-b h-10 border-b-slate-200 hover:bg-slate-100">
                                 <td class="px-4">{{ $loop->iteration }}</td>
-                                <td class="px-4">{{ $ruangan->name }}</td>
-                                <td class="px-4">{{ $ruangan->deskripsi }}</td>
+                                <td class="px-4">{{ $pemakaian->barang->name }}</td>
+                                <td class="px-4">{{ $pemakaian->barang->merk }}</td>
+                                <td class="px-4">{{ $pemakaian->barang->category->name}}</td>
+                                <td class="px-4 text-center">{{ $pemakaian->updated_at}}</td>
+                                <td class="px-4">{{ $pemakaian->amount}}</td>
+                                <td class="px-4">
+                                    @if ($pemakaian->ruang)
+                                        {{ $pemakaian->ruang->name }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td class="px-4">{{ $pemakaian->keterangan}}</td>
                                 <td class="px-4 text-center">
                                   <div class="flex gap-2 items-center justify-center">
-                                    <a href="{{ url('ruangan', $ruangan->id) }}">
+                                    <a href="{{ url('pemakaian', $pemakaian->id) }}">
                                       <x-feathericon-edit class="w-4 h-4 text-indigo-400"/>
                                     </a>
                                     <button 
                                       x-data=""
-                                      x-on:click.prevent="$dispatch('open-modal', '{{ $ruangan->id }}')"
+                                      x-on:click.prevent="$dispatch('open-modal', '{{ $pemakaian->id }}')"
                                     >
                                       <x-feathericon-trash-2 class="w-4 h-4 text-red-400"/>
                                     </button>
-                                    <x-modal name="{{ $ruangan->id }}" focusable maxWidth="md">
-                                        <form method="post" action="{{ route('ruangan.destroy', $ruangan->id) }}" class="p-6">
+                                    <x-modal name="{{ $pemakaian->id }}" focusable maxWidth="md">
+                                        <form method="post" action="{{ route('pemakaian.destroy', $pemakaian->id) }}" class="p-6">
                                             @csrf
                                             @method('delete')
 
@@ -80,9 +96,9 @@
                                 </td>
                               </tr>
                             @endforeach
-                            @if(count($ruangans) == 0)
+                            @if(count($pemakaians) == 0)
                               <tr class="h-32">
-                                <td colspan="3" class="text-center text-gray-400">
+                                <td colspan="9" class="text-center text-gray-400">
                                   <p class="select-none">Data Kosong</p>
                                 </td>
                               </tr>
@@ -91,7 +107,7 @@
                     </table>
                 </div>
             </div>
-            {{ $ruangans->links() }}
+            {{ $pemakaians->links() }}
         </div>
     </div>
 

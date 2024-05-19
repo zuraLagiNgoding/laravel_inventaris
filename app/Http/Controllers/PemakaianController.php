@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Category;
-use App\Models\Pembelian;
+use App\Models\Pemakaian;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
-class PembelianController extends Controller
+class PemakaianController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pembelian = Pembelian::with('barang')->with('category')->latest('id');
+        $pemakaian = Pemakaian::with('barang')->with('category')->latest('id');
 
         if (request()->has('search')) {
         $searchTerm = request()->get('search', '');
-        $pembelian = $pembelian->whereHas('barang', function ($query) use ($searchTerm) {
+        $pemakaian = $pemakaian->whereHas('barang', function ($query) use ($searchTerm) {
             $query->where('name', 'LIKE', '%' . $searchTerm . '%')
                    ->orWhere('merk', 'LIKE', '%' . $searchTerm . '%')
                    ->orWhereHas('category', function ($query) use ($searchTerm) {
@@ -27,8 +27,8 @@ class PembelianController extends Controller
           });
         }
 
-        return view('pembelian.index', [
-            'pembelians' => $pembelian->paginate(10)
+        return view('pemakaian.index', [
+            'pemakaians' => $pemakaian->paginate(10)
         ]);
     }
 
@@ -38,7 +38,8 @@ class PembelianController extends Controller
     public function create()
     {
         $barangs = Barang::pluck('name', 'id')->toArray();
-        return view('pembelian.save', compact('barangs'));
+        $ruangans = Ruangan::pluck('name', 'id')->toArray();
+        return view('pemakaian.save', compact('barangs', 'ruangans'));
     }
 
     /**
@@ -51,14 +52,17 @@ class PembelianController extends Controller
         $request->validate([
             'barang_id' => 'required|exists:barang,id',
             'amount' => 'required|integer|min:1',
+            'keterangan' => 'max:255',
         ]);
 
-        Pembelian::create([
+        Pemakaian::create([
             'barang_id' => $request->barang_id,
+            'ruang_id' => $request->ruang_id,
             'amount' => $request->amount,
+            'keterangan' => $request->keterangan,
         ]);
 
-        return redirect('pembelian')->with('status', "Pembelian barang $barang->name berhasil.");
+        return redirect('pemakaian')->with('status', "Pemakaian barang $barang->name berhasil.");
     }
 
     /**
@@ -74,10 +78,7 @@ class PembelianController extends Controller
      */
     public function edit(string $id)
     {
-        $pembelian = Pembelian::with('barang')->findOrFail($id);
-        $barangs = Barang::pluck('name', 'id')->toArray();
-
-        return view('pembelian.edit', compact('pembelian', 'barangs'));
+        //
     }
 
     /**
@@ -85,17 +86,7 @@ class PembelianController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'barang_id' => 'required|exists:barang,id',
-            'amount' => 'required|integer|min:1',
-        ]);
-
-        Pembelian::findOrFail($id)->update([
-            'barang_id' => $request->barang_id,
-            'amount' => $request->amount,
-        ]);
-
-        return redirect('pembelian')->with('status','Berhasil update data pembelian.');
+        //
     }
 
     /**
@@ -103,10 +94,6 @@ class PembelianController extends Controller
      */
     public function destroy(string $id)
     {
-        $pembelian = Pembelian::with('barang')->findOrFail($id);
-
-        $pembelian->delete();
-
-        return redirect('pembelian')->with('status',"Data pembelian telah dihapus.");
+        //
     }
 }

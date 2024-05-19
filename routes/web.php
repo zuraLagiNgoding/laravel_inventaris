@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PemakaianController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RuanganController;
@@ -56,6 +57,14 @@ Route::post('/pembelian/save', [PembelianController::class, 'store'])->name('pem
 Route::get('/pembelian/{id}', [PembelianController::class, 'edit'])->name('pembelian.edit');
 Route::delete('/pembelian/{id}', [PembelianController::class, 'destroy'])->name('pembelian.destroy');
 Route::put('/pembelian/{id}', [PembelianController::class, 'update'])->name('pembelian.edit');
+
+//pemakaian routes
+Route::get('/pemakaian', [PemakaianController::class, 'index'])->name('pemakaian');
+Route::get('/pemakaian/save', [PemakaianController::class, 'create'])->name('pemakaian.save');
+Route::post('/pemakaian/save', [PemakaianController::class, 'store'])->name('pemakaian.save');
+Route::get('/pemakaian/{id}', [PemakaianController::class, 'edit'])->name('pemakaian.edit');
+Route::delete('/pemakaian/{id}', [PemakaianController::class, 'destroy'])->name('pemakaian.destroy');
+Route::put('/pemakaian/{id}', [PemakaianController::class, 'update'])->name('pemakaian.edit');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

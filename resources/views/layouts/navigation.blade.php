@@ -48,7 +48,7 @@
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button class="inline-flex items-center py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    Transaksi
+                                    Operasional
                                     <div class="ms-1">
                                         <x-feathericon-chevron-down class="h-4 w-4"/>
                                     </div>
@@ -59,11 +59,8 @@
                                 <x-dropdown-link :href="route('pembelian')">
                                     {{ __('Pembelian') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('pemakaian')">
                                     {{ __('Pemakaian') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('dashboard')">
-                                    {{ __('Peletakan') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
