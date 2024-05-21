@@ -33,7 +33,7 @@
                 <div class="flex flex-col bg-white overflow-hidden border shadow-sm sm:rounded-lg">
                     <table class="w-full">
                         <thead>
-                            <tr class="border-b h-8 border-b-slate-200">
+                            <tr class="border-b h-8 bg-indigo-600 text-white text-sm border-b-slate-200">
                                 <th class="w-16 text-start px-4">No</th>
                                 <th class="px-4">Nama Barang</th>
                                 <th class="px-4">Merk/Type</th>

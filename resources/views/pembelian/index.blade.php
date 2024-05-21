@@ -33,7 +33,7 @@
                 <div class="flex flex-col bg-white overflow-hidden border shadow-sm sm:rounded-lg">
                     <table class="w-full">
                         <thead>
-                            <tr class="border-b h-8 border-b-slate-200">
+                            <tr class="border-b h-8 bg-indigo-600 text-white text-sm border-b-slate-200">
                                 <th class="w-16 text-start px-4">No</th>
                                 <th class="px-4">Nama Barang</th>
                                 <th class="px-4">Merk/Type</th>
@@ -92,7 +92,7 @@
                             @endforeach
                             @if(count($pembelians) == 0)
                               <tr class="h-32">
-                                <td colspan="7" class="text-center text-gray-400">
+                                <td colspan="9" class="text-center text-gray-400">
                                   <p class="select-none">Data Kosong</p>
                                 </td>
                               </tr>

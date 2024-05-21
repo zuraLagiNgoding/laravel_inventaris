@@ -15,22 +15,33 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="flex flex-col h-screen whitespace-nowrap bg-gray-100">
-            @include('layouts.navigation')
+        <div class="flex h-screen w-full bg-gray-100">
+            @include('layouts.sidebar')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+            <div class="flex flex-col h-full w-full">
+                <!-- Page Heading -->
+                @if (isset($header))
+                    <header class="bg-white shadow flex justify-between py-6 px-8">
+                        <div class="max-w-7xl">
+                            {{ $header }}
+                        </div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
 
-            <!-- Page Content -->
-            <main class="h-full p-12 relative">
-                {{ $slot }}
-            </main>
+                            <a class="text-red-500 text-sm flex items-center gap-1 font-semibold" href="{{ route("logout") }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                Log Out
+                                <x-tabler-logout-2 class="w-5 h-5"/>
+                            </a>
+                        </form>
+                    </header>
+                @endif
+    
+                <!-- Page Content -->
+                <main class="h-full p-12 relative">
+                    {{ $slot }}
+                </main>
+    
+            </div>
         </div>
     </body>
 </html>

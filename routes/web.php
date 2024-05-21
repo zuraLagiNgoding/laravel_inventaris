@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemakaianController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
@@ -73,9 +74,7 @@ Route::middleware('auth', 'role:ADMIN,OPERATOR')->group(function () {
     Route::put('/pemakaian/{id}', [PemakaianController::class, 'update'])->name('pemakaian.edit');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
