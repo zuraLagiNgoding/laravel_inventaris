@@ -64,7 +64,7 @@
                                       <x-feathericon-trash-2 class="w-4 h-4 text-red-400"/>
                                     </button>
                                     <x-modal name="{{ $barang->id }}" focusable maxWidth="md">
-                                        <form method="post" action="{{ route('category.destroy', $barang->id) }}" class="p-6">
+                                        <form method="post" action="{{ route('barang.destroy', $barang->id) }}" class="p-6">
                                             @csrf
                                             @method('delete')
 

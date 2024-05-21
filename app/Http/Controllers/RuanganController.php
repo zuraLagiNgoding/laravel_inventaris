@@ -72,8 +72,10 @@ class RuanganController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $ruangans = Ruangan::findOrFail($id);
+
         $request->validate([
-            'name' => 'required|max:255|string|unique:ruangan,name',
+            'name' => 'required|max:255|string|unique:ruangan,name'. $ruangans->id,
             'deskripsi' => 'max:255'
         ]);
 

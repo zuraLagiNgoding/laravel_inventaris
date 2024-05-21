@@ -14,7 +14,7 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $pembelian = Pembelian::with('barang')->with('category')->latest('id');
+        $pembelian = Pembelian::latest('id');
 
         if (request()->has('search')) {
         $searchTerm = request()->get('search', '');

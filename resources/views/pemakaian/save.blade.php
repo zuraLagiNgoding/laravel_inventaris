@@ -42,6 +42,22 @@
                         <a class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150" href="{{ route('pemakaian') }}">Back</a>                        
                         <x-primary-button>{{ __('Save') }}</x-primary-button>                        
                     </div>
+
+                    <script>
+                    // Get the pemakaian input field
+                    const barangSelect = document.getElementById('barang_id');
+                    const pemakaianInput = document.getElementById('amount');
+
+                    // Set the initial maximum value of the pemakaian input field to the qty value of the selected barang record
+                    const selectedBarang = {{ old('barang_id', $barang->barang_id ?? null) }};
+                    if (selectedBarang) {
+                        const selectedBarangOption = barangSelect.options.find(option => option.value === selectedBarang);
+                        const qty = parseInt(selectedBarangOption.dataset.qty);
+
+                    // Set the maximum value of the pemakaian input field to the qty value of the associated barang record
+                    pemakaianInput.max = qty;
+                    }
+                    </script>
                 </form>
             </div>
         </div>

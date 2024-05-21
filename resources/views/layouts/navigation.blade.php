@@ -16,55 +16,62 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Inventaris') }}
-                    </x-nav-link> --}}
+                    @if (Auth::user()->role == "ADMIN") 
+                        <div class="hidden sm:flex sm:items-center border-b-2 px-1 pt-1 border-transparent hover:border-gray-300">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        Manajemen Data
+                                        <div class="ms-1">
+                                            <x-feathericon-chevron-down class="h-4 w-4"/>
+                                        </div>
+                                    </button>
+                                </x-slot>
+    
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('category')">
+                                        {{ __('Data Category') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('barang')">
+                                        {{ __('Data Barang') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('ruangan')">
+                                        {{ __('Data Ruang') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    @endif
 
-                    <div class="hidden sm:flex sm:items-center border-b-2 px-1 pt-1 border-transparent hover:border-gray-300">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button class="inline-flex items-center py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    Manajemen Data
-                                    <div class="ms-1">
-                                        <x-feathericon-chevron-down class="h-4 w-4"/>
-                                    </div>
-                                </button>
-                            </x-slot>
+                    @if (Auth::user()->role == "ADMIN" || Auth::user()->role == "OPERATOR") 
+                        <div class="hidden sm:flex sm:items-center border-b-2 px-1 pt-1 border-transparent hover:border-gray-300">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        Operasional
+                                        <div class="ms-1">
+                                            <x-feathericon-chevron-down class="h-4 w-4"/>
+                                        </div>
+                                    </button>
+                                </x-slot>
 
-                            <x-slot name="content">
-                                <x-dropdown-link :href="route('category')">
-                                    {{ __('Data Category') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('barang')">
-                                    {{ __('Data Barang') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('ruangan')">
-                                    {{ __('Data Ruang') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
-                    <div class="hidden sm:flex sm:items-center border-b-2 px-1 pt-1 border-transparent hover:border-gray-300">
-                        <x-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                                <button class="inline-flex items-center py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    Operasional
-                                    <div class="ms-1">
-                                        <x-feathericon-chevron-down class="h-4 w-4"/>
-                                    </div>
-                                </button>
-                            </x-slot>
-
-                            <x-slot name="content">
-                                <x-dropdown-link :href="route('pembelian')">
-                                    {{ __('Pembelian') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('pemakaian')">
-                                    {{ __('Pemakaian') }}
-                                </x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
-                    </div>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('pembelian')">
+                                        {{ __('Pembelian') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('pemakaian')">
+                                        {{ __('Pemakaian') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    @endif
+                    
+                    @if (Auth::user()->role == "PETUGAS") 
+                        <x-nav-link :href="route('pembelian')" :active="request()->routeIs('pembelian')">
+                        {{ __('Pembelian Barang') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 

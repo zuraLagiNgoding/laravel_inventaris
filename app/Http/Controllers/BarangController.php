@@ -81,14 +81,16 @@ class BarangController extends Controller
      */
     public function update(Request $request, int $id)
     {
+        $barang = Barang::findOrFail($id);
+
         $request->validate([
-            'name' => 'required|max:255|string|unique:barang,name',
+            'name' => 'required|max:255|string|unique:barang,name,'. $barang->id,
             'merk' => 'max:255',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer|min:0'
         ]);
 
-        Barang::findOrFail($id)->update([
+        $barang->update([
             'name' => $request->name,
             'merk' => $request->merk,
             'category_id' => $request->category_id,
@@ -96,7 +98,7 @@ class BarangController extends Controller
             'price' => $request->price
         ]);
 
-        return redirect('category')->with('status','Berhasil update category barang baru.');
+        return redirect('barang')->with('status','Berhasil update category barang baru.');
     }
 
     /**

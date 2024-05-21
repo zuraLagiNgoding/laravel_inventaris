@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Pemakaian;
 use App\Models\Ruangan;
+use App\Rules\MaxAmount;
 use Illuminate\Http\Request;
 
 class PemakaianController extends Controller
@@ -48,10 +49,11 @@ class PemakaianController extends Controller
     public function store(Request $request)
     {
         $barang = Barang::findOrFail($request->barang_id);
+        $qty = $barang->qty;
 
         $request->validate([
             'barang_id' => 'required|exists:barang,id',
-            'amount' => 'required|integer|min:1',
+            'amount' => ['required', 'integer', 'min:1', new MaxAmount($qty)],
             'keterangan' => 'max:255',
         ]);
 

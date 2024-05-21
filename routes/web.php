@@ -26,7 +26,9 @@ Route::get('/', function () {
         return redirect("login");
     }
 });
-// category barang routes
+
+Route::middleware('auth', 'role:ADMIN')->group(function () {
+    // category barang routes
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::get('/category/save', [CategoryController::class, 'create'])->name('category.save');
 Route::post('/category/save', [CategoryController::class, 'store'])->name('category.save');
@@ -49,26 +51,31 @@ Route::post('/ruangan/save', [RuanganController::class, 'store'])->name('ruangan
 Route::get('/ruangan/{id}', [RuanganController::class, 'edit'])->name('ruangan.edit');
 Route::delete('/ruangan/{id}', [RuanganController::class, 'destroy'])->name('ruangan.destroy');
 Route::put('/ruangan/{id}', [RuanganController::class, 'update'])->name('ruangan.edit');
+});
 
 //pembelian routes
-Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian');
-Route::get('/pembelian/save', [PembelianController::class, 'create'])->name('pembelian.save');
-Route::post('/pembelian/save', [PembelianController::class, 'store'])->name('pembelian.save');
-Route::get('/pembelian/{id}', [PembelianController::class, 'edit'])->name('pembelian.edit');
-Route::delete('/pembelian/{id}', [PembelianController::class, 'destroy'])->name('pembelian.destroy');
-Route::put('/pembelian/{id}', [PembelianController::class, 'update'])->name('pembelian.edit');
+Route::middleware('auth', 'role:ADMIN,OPERATOR,PETUGAS')->group(function () {
+    Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian');
+    Route::get('/pembelian/save', [PembelianController::class, 'create'])->name('pembelian.save');
+    Route::post('/pembelian/save', [PembelianController::class, 'store'])->name('pembelian.save');
+    Route::get('/pembelian/{id}', [PembelianController::class, 'edit'])->name('pembelian.edit');
+    Route::delete('/pembelian/{id}', [PembelianController::class, 'destroy'])->name('pembelian.destroy');
+    Route::put('/pembelian/{id}', [PembelianController::class, 'update'])->name('pembelian.edit');
+});
 
 //pemakaian routes
-Route::get('/pemakaian', [PemakaianController::class, 'index'])->name('pemakaian');
-Route::get('/pemakaian/save', [PemakaianController::class, 'create'])->name('pemakaian.save');
-Route::post('/pemakaian/save', [PemakaianController::class, 'store'])->name('pemakaian.save');
-Route::get('/pemakaian/{id}', [PemakaianController::class, 'edit'])->name('pemakaian.edit');
-Route::delete('/pemakaian/{id}', [PemakaianController::class, 'destroy'])->name('pemakaian.destroy');
-Route::put('/pemakaian/{id}', [PemakaianController::class, 'update'])->name('pemakaian.edit');
+Route::middleware('auth', 'role:ADMIN,OPERATOR')->group(function () {
+    Route::get('/pemakaian', [PemakaianController::class, 'index'])->name('pemakaian');
+    Route::get('/pemakaian/save', [PemakaianController::class, 'create'])->name('pemakaian.save');
+    Route::post('/pemakaian/save', [PemakaianController::class, 'store'])->name('pemakaian.save');
+    Route::get('/pemakaian/{id}', [PemakaianController::class, 'edit'])->name('pemakaian.edit');
+    Route::delete('/pemakaian/{id}', [PemakaianController::class, 'destroy'])->name('pemakaian.destroy');
+    Route::put('/pemakaian/{id}', [PemakaianController::class, 'update'])->name('pemakaian.edit');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
