@@ -21,10 +21,18 @@
             <div class="flex flex-col h-full w-full">
                 <!-- Page Heading -->
                 @if (isset($header))
-                    <header class="bg-white shadow flex justify-between py-6 px-8">
+                    <header class="bg-white shadow flex justify-between items-center py-4 px-8 min-h-[72px]">
                         <div class="max-w-7xl">
                             {{ $header }}
                         </div>
+                        @unless(Request::url() == url('/dashboard') || Request::segment(count(Request::segments())) == 'save')
+                            <form action="{{ url()->current() }}" method="get" class="flex items-center w-full max-w-sm bg-white px-4 py-2 border border-indigo-700/15 h-10 overflow-hidden rounded-3xl">
+                                <input name="search" type="text" class="!ring-0 basis-[90%] w-full !outline-none border-0"/>
+                                <button type="submit" class="basis-[10%]">
+                                    <x-feathericon-search class="ml-auto h-5 w-5 text-indigo-500"/>
+                                </button>
+                            </form>
+                        @endunless 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 

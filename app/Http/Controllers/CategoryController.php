@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CategoryExport;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
@@ -21,6 +23,11 @@ class CategoryController extends Controller
         return view('category.index', [
             'categories' => $category->paginate(10)
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new CategoryExport, "laporan_category.xlsx");
     }
 
     /**

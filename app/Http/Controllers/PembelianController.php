@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PembelianExport;
 use App\Models\Barang;
 use App\Models\Category;
 use App\Models\Pembelian;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PembelianController extends Controller
 {
@@ -30,6 +32,11 @@ class PembelianController extends Controller
         return view('pembelian.index', [
             'pembelians' => $pembelian->paginate(10)
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new PembelianExport, "daftar_riwayat_pembelian.xlsx");
     }
 
     /**

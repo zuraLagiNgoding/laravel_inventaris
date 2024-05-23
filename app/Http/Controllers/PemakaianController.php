@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PemakaianExport;
 use App\Models\Barang;
 use App\Models\Pemakaian;
 use App\Models\Ruangan;
 use App\Rules\MaxAmount;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PemakaianController extends Controller
 {
@@ -31,6 +33,11 @@ class PemakaianController extends Controller
         return view('pemakaian.index', [
             'pemakaians' => $pemakaian->paginate(10)
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new PemakaianExport, "daftar_riwayat_pemakaian.xlsx");
     }
 
     /**

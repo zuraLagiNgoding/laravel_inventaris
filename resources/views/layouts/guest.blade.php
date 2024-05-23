@@ -16,11 +16,12 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen w-full h-screen flex bg-gray-100">
-            <div class="basis-8/12 w-full p-12">
+            <div class="flex flex-col justify-between basis-8/12 w-full p-12">
                 <div>
-                    <h1 class="text-2xl font-semibold">Aplikasi Manajemen Inventaris Barang</h1>
-                    <h1 class="text-gray-400">Tugas Pemrograman Web</h1>
+                    <h1 class="text-2xl font-semibold">CV. Ogah Rugi</h1>
+                    <h1 class="text-gray-400">Aplikasi Manajemen Inventaris Barang</h1>
                 </div>
+                <img src={{ asset('images/employee.svg') }} class="mb-12" alt="">
             </div>
             <div class="basis-4/12 flex flex-col gap-6 w-full h-full px-6 py-12 bg-white shadow-md overflow-hidden sm:rounded-lg justify-center">
                 <h1 class="text-3xl font-semibold">Login</h1>

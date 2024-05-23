@@ -37,6 +37,6 @@ class MaxAmount implements Rule
      */
     public function message()
     {
-        return 'The amount of pemakaian must not be greater than ' . $this->qty . '.';
+        return 'the stock of the item you selected is only ' . $this->qty . '.';
     }
 }

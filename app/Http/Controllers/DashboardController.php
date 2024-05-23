@@ -13,6 +13,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $pemakaians = Pemakaian::with('barang')->with('category')->latest('id')->paginate(5);
+        $pembelians = Pembelian::with('barang')->with('category')->latest('id')->paginate(5);
+
         $totalCategory = Category::count();
         $totalBarang = Barang::count();
         $totalRuangan = Ruangan::count();
@@ -20,6 +23,6 @@ class DashboardController extends Controller
         $totalPembelian = Pembelian::count();
         $totalPemakaian = Pemakaian::count();
 
-        return view('dashboard', compact('totalCategory', 'totalBarang', 'totalRuangan', 'totalPembelian', 'totalPemakaian'));
+        return view('dashboard', compact('totalCategory', 'totalBarang', 'totalRuangan', 'totalPembelian', 'totalPemakaian', 'pemakaians', 'pembelians'));
     }
 }

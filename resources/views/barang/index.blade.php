@@ -20,14 +20,11 @@
         @endif
         
         <div class="flex flex-col gap-4 max-w-7xl mx-auto h-full sm:px-6 lg:px-8">
-            <div class="flex justify-between">
-                <form action="{{ route('barang') }}" method="get" class="flex items-center max-w-sm bg-white px-4 py-2 border h-10 overflow-hidden rounded-3xl">
-                    <input name="search" type="text" class="!ring-0 basis-[90%] w-auto !outline-none border-0"/>
-                    <button type="submit" class=" basis-[10%]">
-                        <x-feathericon-search class="h-5 w-5 text-indigo-500"/>
-                    </button>
-                </form>
-                <a href="{{ route("barang.save") }}" class="bg-gray-900 gap-2 text-white font-medium px-4 py-1 rounded-md flex items-center text-sm">New Barang <x-feathericon-plus-circle class="w-5 h-5 fill-white text-gray-900"/></a>
+            <div class="flex justify-end">                
+                <div class="flex items-center gap-3">
+                    <a href="{{ url()->current() . '/export' }}" class="border border-green-600 gap-2 hover:bg-green-200/10 text-green-600 font-medium h-full px-4 py-2 rounded-lg flex items-center text-sm">Generate Report<x-bx-spreadsheet class="w-5 h-5 "/></a>
+                    <a href="{{ url()->current() . '/save' }}" class="bg-gray-900 gap-2 text-white font-medium h-full px-4 py-2 rounded-lg flex items-center text-sm">New Barang <x-feathericon-plus-circle class="w-5 h-5 fill-white text-[#2D232E]"/></a>
+                </div>
             </div>
             <div class="flex flex-col h-full">
                 <div class="flex flex-col bg-white overflow-hidden border shadow-sm sm:rounded-lg">

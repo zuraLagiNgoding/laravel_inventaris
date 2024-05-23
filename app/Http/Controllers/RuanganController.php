@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\RuanganExport;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RuanganController extends Controller
 {
@@ -21,6 +23,11 @@ class RuanganController extends Controller
         return view('ruangan.index', [
             'ruangans' => $ruangan->paginate(10)
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new RuanganExport, "laporan_list_ruang.xlsx");
     }
 
     /**
@@ -75,7 +82,7 @@ class RuanganController extends Controller
         $ruangans = Ruangan::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|max:255|string|unique:ruangan,name'. $ruangans->id,
+            'name' => 'required|max:255|string|unique:ruangan,name,'. $ruangans->id,
             'deskripsi' => 'max:255'
         ]);
 

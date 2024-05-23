@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BarangExport;
 use App\Models\Barang;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangController extends Controller
 {
@@ -22,6 +24,11 @@ class BarangController extends Controller
         return view('barang.index', [
             'barangs' => $barang->paginate(10)
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new BarangExport, "laporan_barang.xlsx");
     }
 
     /**

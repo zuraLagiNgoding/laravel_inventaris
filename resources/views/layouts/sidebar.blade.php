@@ -1,14 +1,14 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 w-full max-w-xs">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col justify-between h-16">
-            <div class="flex flex-col py-8 gap-6">
+    <div class="max-w-7xl mx-auto px-6 h-full">
+        <div class="flex flex-col justify-between h-full">
+            <div class="flex flex-col h-full py-8 gap-6">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center mb-4">
-                    <a href="{{ route('dashboard') }}" class="text-lg font-medium text-indigo-500">
+                    <a href="{{ route('dashboard') }}" class="text-lg font-semibold text-indigo-500">
                         Inventaris <span class="text-indigo-600">Barang</span>
                     </a>
-                </div>
+                </div>                
 
                 <!-- Navigation Links -->
                 <div class="hidden gap-4 sm:flex flex-col">
@@ -18,7 +18,7 @@
                     </x-nav-link>
 
                     @if (Auth::user()->role == "ADMIN") 
-                        <h1 class="text-xs text-gray-400">Manajemen Data</h1>
+                        <h1 class="text-xs text-gray-400">Inventarisir</h1>
 
                         <x-nav-link class="py-2 flex gap-3" :href="route('category')" :active="request()->routeIs('category')">
                             <x-heroicon-c-tag class="w-5 h-5"/>
@@ -56,6 +56,18 @@
                             {{ __('Pembelian Barang') }}
                         </x-nav-link>
                     @endif
+                </div>
+
+                <div class="shrink-0 flex gap-3 items-center mt-auto text-gray-700">
+                    <x-heroicon-s-user-circle class="w-9 h-9"/>
+                    <div>
+                        <h1 class="font-light text-indigo-500">
+                            {{ Auth::user()->name }}
+                        </h1>
+                        <h1 class="text-xs">
+                            {{ Auth::user()->email }}
+                        </h1>
+                    </div>
                 </div>
             </div>
 
